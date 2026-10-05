@@ -124,6 +124,17 @@ npm run dev
 
 Open **http://localhost:5173**. The API runs at **http://localhost:5000**.
 
+## Deploy on Vercel
+
+The site and the API are both deployed from this repository. Vercel cannot use the MongoDB on your laptop, so create a free database on [MongoDB Atlas](https://www.mongodb.com/atlas) and add these environment variables in the Vercel project settings:
+
+| Name | Value |
+|------|--------|
+| `MONGO_URI` | Your Atlas connection string |
+| `JWT_SECRET` | Any long secret word |
+
+Then redeploy. The live app is [recruit-x1.vercel.app](https://recruit-x1.vercel.app/).
+
 Copy `server/.env.example` to `server/.env` if that file is missing.
 
 | Account | Email | Password | Can do |

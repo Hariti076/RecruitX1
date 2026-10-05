@@ -26,18 +26,31 @@ app.use(cors());
 // Our own middleware: logs every request in the terminal
 app.use(logger);
 
+// On Vercel the function may receive /jobs instead of /api/jobs.
+if (process.env.VERCEL) {
+  app.use((req, res, next) => {
+    if (!req.url.startsWith('/api')) {
+      const path = req.url.startsWith('/') ? req.url : `/${req.url}`;
+      req.url = path === '/' ? '/api' : `/api${path}`;
+    }
+    next();
+  });
+}
+
 app.get('/', (req, res) => {
-  res.send('RecruitX Lite API is running');
+  res.send('RecruitX API is running');
 });
 
-app.use('/api', authRoutes);
-app.use('/api', applicationRoutes);
-app.use('/api/jobs', jobRoutes);
+let dbReady;
 
-async function start() {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('MongoDB connected');
+function connectDB() {
+  if (!process.env.MONGO_URI) {
+    return Promise.reject(new Error('MONGO_URI is missing'));
+  }
+
+  if (!dbReady) {
+    dbReady = mongoose.connect(process.env.MONGO_URI).then(async () => {
+      console.log('MongoDB connected');
 
     // Replace the short demo jobs with full job cards (salary, eligibility, etc.)
     const fullJob = await Job.findOne({ salary: { $exists: true, $ne: '' } });
@@ -71,14 +84,45 @@ async function start() {
       console.log('Admin user created');
     }
 
-    const port = process.env.PORT || 5000;
-    app.listen(port, () => {
-      console.log(`Server running on http://localhost:${port}`);
+    }).catch((error) => {
+      dbReady = null;
+      throw error;
     });
-  } catch (error) {
-    console.log('Could not start server. Is MongoDB running?');
-    console.log(error.message);
   }
+
+  return dbReady;
 }
 
-start();
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(500).json({ message: 'Database connection failed' });
+  }
+});
+
+app.use('/api', authRoutes);
+app.use('/api', applicationRoutes);
+app.use('/api/jobs', jobRoutes);
+
+function start() {
+  connectDB()
+    .then(() => {
+      const port = process.env.PORT || 5000;
+      app.listen(port, () => {
+        console.log(`Server running on http://localhost:${port}`);
+      });
+    })
+    .catch((error) => {
+      console.log('Could not start server. Is MongoDB running?');
+      console.log(error.message);
+    });
+}
+
+// Vercel runs this file as a function. Locally we start the port ourselves.
+if (!process.env.VERCEL) {
+  start();
+}
+
+module.exports = app;

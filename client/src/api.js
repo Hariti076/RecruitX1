@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const API_URL = 'http://localhost:5000/api';
+// Local Vite proxies /api to the Express server. On Vercel, /api is the same site.
+export const API_URL = '/api';
 
 // Token saved at login is sent with protected requests
 export function authHeader() {
