@@ -19,12 +19,10 @@ Full stack job portal for the Full Stack Development Lab. Students search and ap
 
 | # | Name |
 |---|------|
-| 1 | P. Sathyanarayana |
-| 2 | P. Hashika |
-| 3 | P. Navya |
-| 4 | P. Vasu |
-| 5 | P. Hariti |
-| 6 | P. Himabindu |
+| 1 | P. Hariti |
+| 2 | P. Himabindu |
+| 3 | P. Siri |
+| 4 | P. Supriya |
 
 ---
 
