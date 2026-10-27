@@ -2,7 +2,7 @@
 
 > **One platform. Every opportunity. Built for students.**
 
-Full stack job portal for the Full Stack Development Lab. Students search and apply. The admin adds and removes listings. Every listing is stored in MongoDB.
+Full stack job portal for Students to search and apply. The admin adds and removes listings. Every listing is stored in MongoDB.
 
 ---
 
@@ -11,7 +11,7 @@ Full stack job portal for the Full Stack Development Lab. Students search and ap
 | | |
 |---|---|
 | Course | Full Stack Development Lab (PVP23) |
-| Faculty | Sirisha Ma'am |
+| Faculty | Sushumna Ma'am |
 
 ---
 
@@ -190,7 +190,5 @@ RecruitX/
 ---
 
 ## Acknowledgements
-
-We sincerely thank **Sirisha Ma'am** for her guidance and support throughout this project.
 
 **RecruitX — Bridging students and opportunities, one click at a time.**
