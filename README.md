@@ -4,7 +4,7 @@
 
 RecruitX is a full-stack job portal built for students and fresh graduates. Job listings from companies are kept in one place. A student can register, search and filter jobs, and click **Apply**, which opens the company's official career page and saves the application on the student's dashboard. An admin adds and removes listings. Everything is stored in MongoDB.
 
-**Live demo:** [recruit-x1.vercel.app](https://recruit-x1.vercel.app/)
+**Live demo:** [recruit-x1.vercel.app](https://recruitx1-two.vercel.app/)
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=nodedotjs&logoColor=white)
